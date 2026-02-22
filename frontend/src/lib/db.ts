@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGO_URI || "mongodb+srv://pramod369369369_db_user:9aTAyUyoBXHzDEFJ@cluster0.z4fagax.mongodb.net/netflix_clone?appName=Cluster0";
+let MONGODB_URI = process.env.MONGO_URI;
+
+// If Vercel has the localhost string from previous instructions, force the real Atlas cloud string instead
+if (!MONGODB_URI || MONGODB_URI.includes('127.0.0.1') || MONGODB_URI.includes('localhost')) {
+    MONGODB_URI = "mongodb+srv://pramod369369369_db_user:9aTAyUyoBXHzDEFJ@cluster0.z4fagax.mongodb.net/netflix_clone?appName=Cluster0";
+}
 
 if (!MONGODB_URI) {
     throw new Error('Please define the MONGO_URI environment variable');
