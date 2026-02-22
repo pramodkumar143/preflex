@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGO_URI;
+const MONGODB_URI = process.env.MONGO_URI || "mongodb+srv://pramod369369369_db_user:9aTAyUyoBXHzDEFJ@cluster0.z4fagax.mongodb.net/netflix_clone?appName=Cluster0";
 
 if (!MONGODB_URI) {
-    throw new Error('Please define the MONGO_URI environment variable inside .env.local');
+    throw new Error('Please define the MONGO_URI environment variable');
 }
 
 /**
@@ -28,11 +28,6 @@ async function connectDB() {
         };
 
         let uri = MONGODB_URI!;
-
-        // Block local memory server on Vercel to show a clear instructional error
-        if (process.env.VERCEL && (uri.includes('localhost') || uri.includes('127.0.0.1'))) {
-            throw new Error("VERCEL DEPLOYMENT BLOCK: You must add your real 'MONGO_URI' inside the Vercel Dashboard -> Settings -> Environment Variables. Vercel cannot run a local offline database.");
-        }
 
         // Using memory server locally to prevent crashes
         if (uri.includes('localhost') || uri.includes('127.0.0.1')) {
