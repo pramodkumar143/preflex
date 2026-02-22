@@ -26,7 +26,7 @@ export default function Login() {
             const endpoint = isSignIn ? '/api/auth/login' : '/api/auth/register';
             const payload = isSignIn ? { email, password } : { username, email, password };
 
-            const res = await fetch(`/api${endpoint}`, {
+            const res = await fetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
