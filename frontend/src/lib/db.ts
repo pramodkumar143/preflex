@@ -29,6 +29,11 @@ async function connectDB() {
 
         let uri = MONGODB_URI!;
 
+        // Block local memory server on Vercel to show a clear instructional error
+        if (process.env.VERCEL && (uri.includes('localhost') || uri.includes('127.0.0.1'))) {
+            throw new Error("VERCEL DEPLOYMENT BLOCK: You must add your real 'MONGO_URI' inside the Vercel Dashboard -> Settings -> Environment Variables. Vercel cannot run a local offline database.");
+        }
+
         // Using memory server locally to prevent crashes
         if (uri.includes('localhost') || uri.includes('127.0.0.1')) {
             console.log("Using local mongodb memory server inside Next.js API...");
