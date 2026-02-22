@@ -29,14 +29,6 @@ async function connectDB() {
 
         let uri = MONGODB_URI!;
 
-        // Using memory server locally to prevent crashes
-        if (uri.includes('localhost') || uri.includes('127.0.0.1')) {
-            console.log("Using local mongodb memory server inside Next.js API...");
-            const { MongoMemoryServer } = await import('mongodb-memory-server');
-            const mongoServer = await MongoMemoryServer.create();
-            uri = mongoServer.getUri();
-        }
-
         cached.promise = mongoose.connect(uri, opts).then((mongoose) => {
             return mongoose;
         });
